@@ -32,8 +32,11 @@ bot.on('message',data =>{
 
 function handleMessage(message){
     console.log('handle message');
-    var msg = message.split(' '); 
-    console.log(msg);
+    let params = {
+        icon_emoji:':angry:'
+        };
+    let msg = message.split(' '); 
+    let exist = false;
         msg.map((word)=>{
             console.log(word);
             let newWord = word[0].toUpperCase() + word.slice(1);
@@ -42,11 +45,15 @@ function handleMessage(message){
                 if( index !== -1 ){
                     console.log(word,index);
                     getPokemon(word,message);
+                    exist = true;
                 }
                 else{
                     console.log('What are you typing?');
                 }
         });
+        if(!exist){
+            bot.postMessageToChannel('general',`I answer only about the pokemon stuff.`,params);                     
+        }
 }
 
 async function getPokemon(pokemonName,message){
@@ -57,7 +64,7 @@ async function getPokemon(pokemonName,message){
     try{
         const res = await axios(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
         console.log(res.data);
-        if(message.includes(' height') || message.includes('weight')){
+        if(message.includes(' height') || message.includes('height')){
             pokemonHeight(res.data);
         }
         else if(message.includes(' weight') || message.includes('weight')){
@@ -86,6 +93,9 @@ async function getPokemon(pokemonName,message){
         }
         else if(message.includes(' experience') || message.includes('experience')){
             pokemonExperience(res.data);
+        }
+        else if(message.includes(' image') || message.includes('picture') || message.includes('image') || message.includes(' picture')){
+            pokemonImage(res.data);
         }
     }
     catch(e){
@@ -179,4 +189,15 @@ function pokemonAbility(pokemonData){
         });
         console.log(moves);
         bot.postMessageToChannel('general',`Some of the ability used by ${pokemonData.name} are ${ability[0]} and ${ability[1]}`,params); 
+}
+
+function pokemonImage(pokemonData){
+    let params = {
+        icon_emoji:':smiley:'
+        };
+        bot.postMessageToChannel('general',{
+            attachments: [{
+                "image_url": pokemonData.sprites.front_default
+            }]
+        },params); 
 }
