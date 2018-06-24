@@ -57,34 +57,34 @@ async function getPokemon(pokemonName,message){
     try{
         const res = await axios(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
         console.log(res.data);
-        if(message.includes(' height')){
+        if(message.includes(' height') || message.includes('weight')){
             pokemonHeight(res.data);
         }
-        else if(message.includes(' weight')){
+        else if(message.includes(' weight') || message.includes('weight')){
             pokemonWeight(res.data);
         }
-        else if(message.includes(' type')){
+        else if(message.includes(' type') || message.includes('type') ){
             pokemonType(res.data);
         }
-        else if(message.includes( 'speed')){
+        else if(message.includes(' speed') || message.includes('speed')){
             pokemonSpeed(res.data);
         }
-        else if(message.includes( 'defense')){
+        else if(message.includes(' defense') || message.includes('defense')){
             pokemonDefense(res.data);
         }
-        else if(message.includes( 'attack')){
+        else if(message.includes(' attack') || message.includes('attack')){
             pokemonAttack(res.data);
         }
-        else if(message.includes( 'hp')){
+        else if(message.includes(' hp')|| message.includes('hp')){
             pokemonHp(res.data);
         }
-        else if(message.includes( 'moves')){
+        else if(message.includes(' moves') || message.includes('moves')){
             pokemonMoves(res.data);
         }
-        else if(message.includes( ' ability')){
+        else if(message.includes(' ability') || message.includes('ability')){
             pokemonAbility(res.data);
         }
-        else if(message.includes( ' experience')){
+        else if(message.includes(' experience') || message.includes('experience')){
             pokemonExperience(res.data);
         }
     }
@@ -169,7 +169,7 @@ function pokemonMoves(pokemonData){
         bot.postMessageToChannel('general',`Some of the moves used by ${pokemonData.name} are ${moves[0]}, ${moves[1]}, ${moves[2]} and ${moves[3]}`,params); 
 }
 
-function pokemonMoves(pokemonData){
+function pokemonAbility(pokemonData){
     let params = {
         icon_emoji:':smiley:'
         };
@@ -178,5 +178,5 @@ function pokemonMoves(pokemonData){
             ability.push(i.ability.name);
         });
         console.log(moves);
-        bot.postMessageToChannel('general',`Some of the ability used by ${pokemonData.name} are ${pokemonData.base_experience} and ${pokemonData.base_experience}`,params); 
+        bot.postMessageToChannel('general',`Some of the ability used by ${pokemonData.name} are ${ability[0]} and ${ability[1]}`,params); 
 }
