@@ -82,11 +82,14 @@ async function getPokemon(pokemonName,message){
             pokemonMoves(res.data);
         }
         else if(message.includes( ' ability')){
-            pokemonMoves(res.data);
+            pokemonAbility(res.data);
+        }
+        else if(message.includes( ' experience')){
+            pokemonExperience(res.data);
         }
     }
     catch(e){
-        bot.postMessageToChannel('general',`Something went wrong with the api`,params);         
+        bot.postMessageToChannel('general',`Please mention the skill you want to know about`,params);         
     }
    
 }
@@ -97,6 +100,15 @@ function pokemonHeight(pokemonData){
     };
     console.log(pokemonData.height); 
     bot.postMessageToChannel('general',`The height of ${pokemonData.name} is ${pokemonData.height}`,params); 
+}
+
+
+function pokemonExperience(pokemonData){
+    let params = {
+    icon_emoji:':smiley:'
+    };
+    console.log(pokemonData.height); 
+    bot.postMessageToChannel('general',`The amount of experience of ${pokemonData.name} is ${pokemonData.base_experience}`,params); 
 }
 
 function pokemonWeight(pokemonData){
@@ -155,4 +167,16 @@ function pokemonMoves(pokemonData){
         });
         console.log(moves);
         bot.postMessageToChannel('general',`Some of the moves used by ${pokemonData.name} are ${moves[0]}, ${moves[1]}, ${moves[2]} and ${moves[3]}`,params); 
+}
+
+function pokemonMoves(pokemonData){
+    let params = {
+        icon_emoji:':smiley:'
+        };
+        let ability =[];
+        pokemonData.abilities.map((i)=>{
+            ability.push(i.ability.name);
+        });
+        console.log(moves);
+        bot.postMessageToChannel('general',`Some of the ability used by ${pokemonData.name} are ${pokemonData.base_experience} and ${pokemonData.base_experience}`,params); 
 }
