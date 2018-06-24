@@ -63,6 +63,9 @@ async function getPokemon(pokemonName,message){
         else if(message.includes(' weight')){
             pokemonWeight(res.data);
         }
+        else if(message.includes(' type')){
+            pokemonType(res.data);
+        }
     }
     catch(e){
         bot.postMessageToChannel('general',`Something went wrong with the api`,params);         
@@ -75,7 +78,7 @@ function pokemonHeight(pokemonData){
     icon_emoji:':smiley:'
     };
     console.log(pokemonData.height); 
-    bot.postMessageToChannel('general',`The height of the ${pokemonData.name} is ${pokemonData.height}`,params); 
+    bot.postMessageToChannel('general',`The height of ${pokemonData.name} is ${pokemonData.height}`,params); 
 }
 
 function pokemonWeight(pokemonData){
@@ -83,5 +86,13 @@ function pokemonWeight(pokemonData){
     icon_emoji:':smiley:'
     };
     console.log(pokemonData.weight); 
-    bot.postMessageToChannel('general',`The weight of the ${pokemonData.name} is ${pokemonData.weight}`,params); 
+    bot.postMessageToChannel('general',`The weight of ${pokemonData.name} is ${pokemonData.weight}kg`,params); 
+}
+
+function pokemonType(pokemonData){
+    let params = {
+    icon_emoji:':smiley:'
+    };
+    console.log(pokemonData.types[0].type.name); 
+    bot.postMessageToChannel('general',`${pokemonData.name} is of type${pokemonData.types[0].type.name}`,params); 
 }
