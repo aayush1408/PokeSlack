@@ -73,7 +73,16 @@ async function getPokemon(pokemonName,message){
             pokemonDefense(res.data);
         }
         else if(message.includes( 'attack')){
-            pokemonDefense(res.data);
+            pokemonAttack(res.data);
+        }
+        else if(message.includes( 'hp')){
+            pokemonHp(res.data);
+        }
+        else if(message.includes( 'moves')){
+            pokemonMoves(res.data);
+        }
+        else if(message.includes( ' ability')){
+            pokemonMoves(res.data);
         }
     }
     catch(e){
@@ -125,5 +134,25 @@ function pokemonAttack(pokemonData){
     let params = {
         icon_emoji:':smiley:'
         };
-        bot.postMessageToChannel('general',`Attack of ${pokemonData.name} is ${ pokemonData.stats[2].base_stat }`,params); 
+        bot.postMessageToChannel('general',`A0ttack of ${pokemonData.name} is ${ pokemonData.stats[2].base_stat }`,params); 
+}
+
+
+function pokemonHp(pokemonData){
+    let params = {
+        icon_emoji:':smiley:'
+        };
+        bot.postMessageToChannel('general',`Attack of ${pokemonData.name} is ${ pokemonData.stats[5].base_stat }`,params); 
+}
+
+function pokemonMoves(pokemonData){
+    let params = {
+        icon_emoji:':smiley:'
+        };
+        let moves =[];
+        pokemonData.moves.map((i)=>{
+            moves.push(i.move.name);
+        });
+        console.log(moves);
+        bot.postMessageToChannel('general',`Some of the moves used by ${pokemonData.name} are ${moves[0]}, ${moves[1]}, ${moves[2]} and ${moves[3]}`,params); 
 }
