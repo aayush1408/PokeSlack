@@ -66,6 +66,15 @@ async function getPokemon(pokemonName,message){
         else if(message.includes(' type')){
             pokemonType(res.data);
         }
+        else if(message.includes( 'speed')){
+            pokemonSpeed(res.data);
+        }
+        else if(message.includes( 'defense')){
+            pokemonDefense(res.data);
+        }
+        else if(message.includes( 'attack')){
+            pokemonDefense(res.data);
+        }
     }
     catch(e){
         bot.postMessageToChannel('general',`Something went wrong with the api`,params);         
@@ -94,5 +103,27 @@ function pokemonType(pokemonData){
     icon_emoji:':smiley:'
     };
     console.log(pokemonData.types[0].type.name); 
-    bot.postMessageToChannel('general',`${pokemonData.name} is of type${pokemonData.types[0].type.name}`,params); 
+    bot.postMessageToChannel('general',`${pokemonData.name} is of type ${pokemonData.types[0].type.name}`,params); 
+}
+
+function pokemonSpeed(pokemonData){
+    let params = {
+        icon_emoji:':smiley:'
+        };
+        bot.postMessageToChannel('general',`Speed of ${pokemonData.name} is ${pokemonData.stats[0].base_stat}`,params); 
+}
+
+
+function pokemonDefense(pokemonData){
+    let params = {
+        icon_emoji:':smiley:'
+        };
+        bot.postMessageToChannel('general',`Defense of ${pokemonData.name} is ${ pokemonData.stats[1].base_stat }`,params); 
+}
+
+function pokemonAttack(pokemonData){
+    let params = {
+        icon_emoji:':smiley:'
+        };
+        bot.postMessageToChannel('general',`Attack of ${pokemonData.name} is ${ pokemonData.stats[2].base_stat }`,params); 
 }
